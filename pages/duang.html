@@ -68,7 +68,7 @@
                 let draw = () => {
                     clear();
                     ball.draw();
-                    if (ball.x + ball.vx > canvas.width - 60 || ball.x + ball.vx < -25) {
+                    if (ball.x + ball.vx > canvas.width - 25 || ball.x + ball.vx < -25) {
                         ball.vx = -ball.vx;
                     }
                     if (ball.y + ball.vy > canvas.height - 60) {
