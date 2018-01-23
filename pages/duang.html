@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0;">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas弹弹球</title>
+    <link rel="stylesheet" href="./../css/reset.css">
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            border: 1px solid #000;
+        }
+
+        canvas:hover {
+            box-shadow: 10px 16px 20px rgba(0, 0, 0, .3);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="./../index.html">HOME</a>
+    </header>
+    <canvas id="myCanvas" width="600" height="300"></canvas>
+    <p>鼠标点击，滑稽duangdaungduang</p>
+</body>
+<script>
+    window.onload = () => {
+        const canvas = document.querySelector('#myCanvas');
+        if (canvas.getContext) {
+            let ctx = canvas.getContext('2d');
+            let img = new Image();
+            img.src = './images/huaji.jpg';
+            img.onload = () => {
+                let winWidth = 0;
+                // 获取窗口宽度
+                if (window.innerWidth) {
+                    winWidth = window.innerWidth;
+                } else if ((document.body) && (document.body.clientWidth)) {
+                    winWidth = document.body.clientWidth;
+                }
+                if (winWidth < 600) {
+                    canvas.width = winWidth -10;
+                }
+                class Ball {
+                    constructor() {
+                        this.x = 0;
+                        this.y = 0;
+                        this.vx = 5;
+                        this.vy = 2;
+                        this.width = 60;
+                        this.height = 60;
+                    }
+                    draw() {
+                        ctx.drawImage(img, this.x, this.y, this.width, this.height);
+                    }
+                }
+                let ball = new Ball();
+                let clear = () => {
+                    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+                let draw = () => {
+                    clear();
+                    ball.draw();
+                    if (ball.x + ball.vx > canvas.width - 60 || ball.x + ball.vx < -25) {
+                        ball.vx = -ball.vx;
+                    }
+                    if (ball.y + ball.vy > canvas.height - 60) {
+                        ball.vy = -ball.vy;
+                    }
+                    ball.x += ball.vx;
+                    ball.y += ball.vy;
+                    ball.vy *= .99;
+                    ball.vy += .5;
+                    raf = requestAnimationFrame(draw);
+                }
+                let move = false,
+                    raf;
+                if ('ontouchmove' in document) {
+                    document.querySelector('p').innerHTML="敢不敢戳一下（←_←）"
+                    canvas.addEventListener('touchmove', (e) => {
+                        if (!move) {
+                            clear();
+                            var touch = e.touches[0];
+                            ball.x = +(touch.pageX) - 30;
+                            ball.y = +(touch.pageY) - 60;
+                            ball.draw();
+                        }
+                    });
+                    canvas.addEventListener('touchstart', () => {
+                        if (raf) {
+                            window.cancelAnimationFrame(raf);
+                        }
+                        move = false;
+                    })
+                    canvas.addEventListener('touchend', () => {
+                        if (!move) {
+                            raf = window.requestAnimationFrame(draw);
+                            move = true;
+                        }
+                    })
+                } else {
+                    canvas.addEventListener('mousemove', (e) => {
+                        if (!move) {
+                            clear();
+                            ball.x = e.clientX - 30;
+                            ball.y = e.clientY - 60;
+                            ball.draw();
+                        }
+                    });
+                    canvas.addEventListener('mouseout', () => {
+                        if (raf) {
+                            window.cancelAnimationFrame(raf);
+                        }
+                        move = false;
+                    })
+                    canvas.addEventListener('click', () => {
+                        if (!move) {
+                            raf = window.requestAnimationFrame(draw);
+                            move = true;
+                        }
+                    })
+                }
+
+                ball.draw();
+            }
+        }
+    }
+</script>
+
+</html>

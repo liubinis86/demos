@@ -1,0 +1,10 @@
+li {
+  transition: all .3s;
+}
+li:hover {
+  transform: translate3d(20px, 0, 0);
+}
+li:hover a {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background-color: #ececec;
+}
