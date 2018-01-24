@@ -19,13 +19,6 @@ input {
   vertical-align: middle;
 }
 
-select,
-input,
-textarea {
-  font-size: 12px;
-  margin: 0;
-  border: 0 none;
-}
 textarea {
   resize: none;
 }
