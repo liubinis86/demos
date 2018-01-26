@@ -1,0 +1,11 @@
+{
+  "name": "demos_created_by_liubin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:liubinis86/demos.git",
+  "author": "liubin <1049385272@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dialog-polyfill": "^0.4.9"
+  }
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H5原生dialog</title>
+    <link rel="stylesheet" href="../dialog-polyfill/dialog-polyfill.css">
+    <style>
+        h3 {
+            margin-top: 0;
+            padding-right: 10px;
+        }
+        
+        #dialog {
+            width: 400px;
+            height: 150px;
+            padding: 0;
+            border: 2px solid #000;
+            -webkit-box-shadow: 2px 2px 6px #666;
+                    box-shadow: 2px 2px 6px #666;
+            text-align: center;
+        }
+        #dialog::backdrop{
+            background: url('./images/huaji.jpg') no-repeat center center;
+            background-size: contain;
+        }
+        #dialog+ .backdrop{
+            background: url('./images/huaji.jpg') no-repeat center center;
+            background-size: contain;
+        }
+        #content {
+            height: 66px;
+        }
+        
+        #dialog header {
+            background-color: rgb(7, 218, 255);
+            position: relative;
+        }
+        
+        #close {
+            display: inline-block;
+            cursor: pointer;
+            position: absolute;
+            right: 14px;
+            padding: 0 2px;
+            top: 2px;
+            -webkit-box-shadow: 0 0 2px #000;
+                    box-shadow: 0 0 2px #000;
+        }
+        
+        button {
+            cursor: pointer;
+        }
+        
+        dialog[open] {
+            display: block;
+        }
+        
+        dialog[open] {
+            -webkit-animation: show .6s ease-out;
+                    animation: show .6s ease-out;
+        }
+        
+        @-webkit-keyframes show {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -15px, 0) rotate3d(6, 15, 15, 480deg) scale3d(.2, .2, 1);
+                        transform: translate3d(0, -15px, 0) rotate3d(6, 15, 15, 480deg) scale3d(.2, .2, 1);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0) scale3d(1, 1, 1);
+                        transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0) scale3d(1, 1, 1);
+            }
+        }
+        
+        @keyframes show {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -15px, 0) rotate3d(6, 15, 15, 480deg) scale3d(.2, .2, 1);
+                        transform: translate3d(0, -15px, 0) rotate3d(6, 15, 15, 480deg) scale3d(.2, .2, 1);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0) scale3d(1, 1, 1);
+                        transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0) scale3d(1, 1, 1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <p>我是不是很帅？</p>
+    <p id="answer">&nbsp;</p>
+    <button id="show">戳我发表意见</button>
+    <div>
+        <p>&lt;dialog&gt;元素有一个open属性。该属性决定了dialog的显示与隐藏</p>
+        <p>它以showModal()显示时，会自动添加一个::backdrop伪元素，用于控制遮挡层的样式，比如给他加个滑稽背景图</p>
+        <p>dialog.show()：让dialog在DOM流中的位置显示（不带遮挡层）</p>
+        <p>dialog.showModal()：让dialog绝对定位居中显示（带遮挡层）</p>
+        <p>dialog.close(stringParam)：让dialog隐藏（实际上就是移除了open属性）且把stringParam传入到dialog.returnValue中</p>
+        <p>常用事件：
+            <ul>
+                <li>close：用户关闭对话框时触发</li>
+                <li>cancel：当用户按了 Esc 关闭对话框时触发</li>
+            </ul>
+        </p>
+        <hr>
+        目前只有chrome支持了该元素，可以在不支持的浏览器中使用<a href="https://github.com/GoogleChrome/dialog-polyfill">谷歌提供的polyfill</a>来模拟它
+    </div>
+    <dialog id="dialog">
+        <header>
+            <h3 id="header">HTML5.2 原生dialog尝尝鲜</h3>
+            <span id="close">X</span>
+        </header>
+        <div id="content">
+            啦啦啦，我是卖报的小行家
+        </div>
+        <footer>
+            <button id="yes">是的</button>
+            <button id="no">没错</button>
+        </footer>
+    </dialog>
+</body>
+<script src="../dialog-polyfill/dialog-polyfill.js"></script>
+<script>
+    var modal = document.querySelector("#dialog"),
+        showBtn = document.querySelector('#show'),
+        yesBtn = document.querySelector('#yes'),
+        noBtn = document.querySelector('#no'),
+        closeBtn = document.querySelector('#close'),
+        answer = document.querySelector('#answer'),
+        value = '';
+    dialogPolyfill.registerDialog(modal);
+    showBtn.addEventListener('click', () => {
+        modal.showModal();
+    })
+    yesBtn.addEventListener('click', () => {
+        modal.close('是的');
+    })
+    noBtn.addEventListener('click', () => {
+        modal.close('没错');
+    })
+    closeBtn.addEventListener('click', () => {
+        modal.close('对对对');
+    })
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.close('太丑，不看');
+        }
+    })
+    modal.addEventListener('cancel',()=>{
+        modal.close('不发表意见');
+    })
+    modal.addEventListener('close', () => {
+        answer.innerHTML = modal.returnValue;
+    })
+</script>
+
+</html>
