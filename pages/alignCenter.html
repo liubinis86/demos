@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vertical-align实现水平垂直居中</title>
+    <style>
+        .filter {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .8);
+            text-align: center;
+            font-size: 0;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity .5s ;
+        }
+
+        .filter::after {
+            content: '';
+            /* 模拟幽灵空白节点以占据高度 */
+            display: inline-block;
+            /* 更改此处即可改变dialog盒子显示的高度 */
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .dialog {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 14px;
+            width: 200px;
+            padding: 10px;
+            border-radius: 2px;
+            background-color: #fff;
+            transform: translateY(500%);
+            transition: all .6s cubic-bezier(.68, -.55, .265, 1.55);
+        }
+
+        .show {
+            opacity: 1;
+            z-index: 1;
+        }
+        .show>.dialog{
+            transform: translateY(0%);
+        }
+        .center-box {
+            margin-top: 10px;
+            height: 500px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="./../index.html">HOME</a>
+    </header>
+    <button class="add-height">戳我变高</button>
+    <button class="open-dialog">戳我打开遮盖层</button>
+    <div class="center-box">
+        <p>此方法实现的水平垂直居中不受页面高度，dialog内容的影响。始终水平垂直居中</p>
+        <p>通过改变filter盒子的after伪元素的高度，可自定义dialog盒子的显示位置</p>
+    </div>
+    <div class="filter">
+        <div class="dialog">
+            <p>啦啦啦</p>
+            <button class="add-word-btn">戳我加多几个字</button>
+        </div>
+    </div>
+    <script>
+        let addBtn = document.querySelector('.add-height');
+        let openBtn = document.querySelector('.open-dialog');
+        let centerBox = document.querySelector('.center-box');
+        let filterBox = document.querySelector('.filter');
+        let dialogBox = document.querySelector('.dialog');
+        let addWordBtn = document.querySelector('.dialg button');
+        addBtn.addEventListener('click',()=>{
+            centerBox.style.height = centerBox.clientHeight +500+'px';
+        },false)
+        openBtn.addEventListener('click',()=>{
+            filterBox.classList.add('show')
+        },false)
+        filterBox.addEventListener('click', (event) => {
+            event = event||window.event;
+            if (event.target.className !== 'dialog') {
+                event.target.classList.remove('show')
+            }
+            if (event.target.className === 'add-word-btn') {
+                let pEle = event.target.previousElementSibling;
+                pEle.innerText+='啦啦啦';
+            }
+            
+        },false)
+    </script>
+</body>
+
+</html>
