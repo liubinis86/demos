@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取字符串重复率最高的字符</title>
+</head>
+
+<body>
+    <header>
+            <a href="./../index.html">HOME</a>
+    </header>
+    <label for="text">请输入字符串</label>
+    <input type="text" id="text">
+    <p id="op"></p>
+    <script>
+        const oText = document.querySelector('#text');
+        const oP = document.querySelector('#op')
+        oText.addEventListener('input', function () {
+            console.log(this.value);
+            getMaxCode(this.value);
+        })
+        // 求字符串中重复最多的那个字符
+        function getMaxCode(str) {
+            const obj = {}
+            let maxArr = []
+            for (const a of str) {
+                if (!obj[a]) {
+                    obj[a] = 1
+                } else {
+                    obj[a]++
+                }
+            }
+            var num = 0,
+                code = ''
+            for (var i in obj) {
+                if (obj[i] > num) {
+                    num = obj[i];
+                    code = i + '、';
+                } else if (obj[i] === num) {
+                    code += i + '、'
+                }
+            }
+            if (num > 0) {
+                code = code.substring(0, code.length - 1)
+                console.log(`出现次数最多的字符是：${code},出现了${num}次`);
+                oP.innerHTML = `出现次数最多的字符是：<span style="color:red">${code}</span>，出现了<span style="color:red">${num}</span>次`
+            }
+        }
+    </script>
+</body>
+
+</html>
