@@ -8,3 +8,21 @@ li:hover a {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   background-color: #ececec;
 }
+p a {
+  position: relative;
+}
+p a::after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-bottom: 2px solid;
+  transition: transform .5s;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+p a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
