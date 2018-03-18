@@ -1,10 +1,13 @@
 li {
+  -webkit-transition: all .3s;
   transition: all .3s;
 }
 li:hover {
+  -webkit-transform: translate3d(20px, 0, 0);
   transform: translate3d(20px, 0, 0);
 }
 li:hover a {
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   background-color: #ececec;
 }
@@ -18,11 +21,22 @@ p a::after {
   left: 0;
   bottom: 0;
   border-bottom: 2px solid;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
   transition: transform .5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+  -webkit-transform: scaleX(0);
+  -ms-transform: scaleX(0);
   transform: scaleX(0);
+  -webkit-transform-origin: right;
+  -ms-transform-origin: right;
   transform-origin: right;
 }
 p a:hover::after {
+  -webkit-transform: scaleX(1);
+  -ms-transform: scaleX(1);
   transform: scaleX(1);
+  -webkit-transform-origin: left;
+  -ms-transform-origin: left;
   transform-origin: left;
 }

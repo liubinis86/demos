@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,41 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
 </head>
+
 <body>
     <h1>呆毛们</h1>
     <h4>这是刘彬用于存放日常所做demo的小仓库</h4>
-    <p>联系我：<a href="https://github.com/liubinis86" target="_blank">GitHub</a>、<a href="mailto:1049385272@qq.com" title="mail to me">liubin9309@qq.com</a></p>
+    <p>联系我：
+        <a href="https://github.com/liubinis86" target="_blank">GitHub</a>、
+        <a href="mailto:1049385272@qq.com" title="mail to me">liubin9309@qq.com</a>
+    </p>
     <p id="statement"></p>
     <ul>
-        <li><a href="./pages/vue-e-shop">2018-03-10 vue_在线商城</a></li>
-        <li><a href="./pages/getMaxCodeInString.html">2018-03-05 获取字符串中重复次数最多的字符</a></li>
-        <li><a href="./pages/alignCenter.html">2018-02-27 vertical-align实现的水平垂直居中</a></li>
-        <li><a href="./pages/h5Dialog.html">2018-01-26 HTML5.2 dialog</a></li>
-        <li><a href="./pages/colorPicker.html">2018-01-24 canvas取色器</a></li>
-        <li><a href="./pages/duang.html">2018-01-23 canvas弹弹球</a></li>
+        <li>
+            <a href="./pages/vue-e-shop">2018-03-10 vue_在线商城</a>
+        </li>
+        <li>
+            <a href="./pages/getMaxCodeInString.html">2018-03-05 获取字符串中重复次数最多的字符</a>
+        </li>
+        <li>
+            <a href="./pages/alignCenter.html">2018-02-27 vertical-align实现的水平垂直居中</a>
+        </li>
+        <li>
+            <a href="./pages/h5Dialog.html">2018-01-26 HTML5.2 dialog</a>
+        </li>
+        <li>
+            <a href="./pages/colorPicker.html">2018-01-24 canvas取色器</a>
+        </li>
+        <li>
+            <a href="./pages/duang.html">2018-01-23 canvas弹弹球</a>
+        </li>
     </ul>
+    <script src="./js/common.js"></script>
     <script>
         var aLi = document.querySelectorAll('li'),
             oP = document.querySelector('#statement');
-        oP.innerHTML = `以下demos均由本人实现,目前已累计${aLi.length}个。`
+        oP.innerHTML = '以下demos均由本人实现,目前已累计' + aLi.length + '个。'
     </script>
 </body>
+
 </html>
